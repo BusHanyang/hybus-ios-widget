@@ -255,7 +255,7 @@ const createMediumWidget = async () => {
         if (location == null || location == undefined || location == "") {
             let title = mainStack.addText("정류장 파라미터를 설정해 주세요!");
     
-            return;
+            return widget;
         }
     } else {
         location = "셔틀콕"
