@@ -234,7 +234,6 @@ const getCurrentInfo = async (loc) => {
 
 const createMediumWidget = async () => {
     let widget = new ListWidget();
-    let backgroundColor = '#001148'
     
 	let mainStack = widget.addStack();
     mainStack.layoutHorizontally();
@@ -335,22 +334,73 @@ const createSmallWidget = async () => {
     let widget = new ListWidget();
     let titleStack = widget.addStack();
     const loc = args.widgetParameter;
+	
+    let mainStack = widget.addStack();
+    mainStack.layoutVertically();
 
-    if (loc == null || loc == undefined || loc == "") {
-        let title = titleStack.addText("정류장 파라미터를 설정해 주세요!");
+	let locationStack = mainStack.addStack();
+    let simpleGradient = new LinearGradient()
+    simpleGradient.colors = [new Color("141414"), new Color("001148")]
+    simpleGradient.locations = [0, 1]
+
+    widget.backgroundGradient = simpleGradient
+
+    var location = null;
+    
+    if (config.runsInWidget) {
+        location = args.widgetParameter;
+        
+        if (location == null || location == undefined || location == "") {
+            let title = mainStack.addText("정류장 파라미터를 설정해 주세요!");
+    
+            return widget;
+        }
+    } else {
+        location = "셔틀콕"
     }
-    else {
-        let title = titleStack.addText(`🚌 현재 버스 시간표: ${loc}`);
+
+    const convertedLocation = convertLocationString(location);
+	const busInfo = await getCurrentInfo(convertedLocation);
+
+	locationStack.layoutHorizontally();
+    let locationText = locationStack.addText(location);
+	locationText.font = Font.boldSystemFont(32);
+    
+	mainStack.addSpacer(10);
+
+    let shuttleStack = mainStack.addStack();
+    shuttleStack.layoutVertically();
+    
+    if (busInfo.length == 1 || busInfo.length == 2) {
+        let busTypeStack = shuttleStack.addStack();
+        let busTypeText = busTypeStack.addText(busInfo[0]["destination"]);
+        busTypeText.font = Font.systemFont(14);
+		shuttleStack.addSpacer(5);
+        
+        let busTimeStack = shuttleStack.addStack();
+        busTimeStack.layoutHorizontally();
+        let busTimeText = busTimeStack.addText(busInfo[0]["time"]);
+        busTimeText.font = new Font("CourierNewPS-BoldMT", 28);
+        busTimeStack.addSpacer(10);
+        let busDepartText = busTimeStack.addText("출발");
+        busDepartText.font = Font.systemFont(14);
+        busTimeStack.centerAlignContent();
+    } else {
+        shuttleStack.addSpacer(14);
+        let doneText = shuttleStack.addText(busInfo);
+        doneText.font = Font.systemFont(14)
+        doneText.centerAlignText();
     }
+
 
     return widget;
 }
 
 
 if (config.runsInApp) {
-    const widget = await createMediumWidget();
+    const widget = await createSmallWidget();
     Script.setWidget(widget);
-    widget.presentMedium();
+    widget.presentSmall();
 } else {
     let nextRefresh = Date.now() + 1000*30
     if (config.widgetFamily === "small") {
