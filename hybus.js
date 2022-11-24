@@ -276,31 +276,42 @@ const createMediumWidget = async () => {
     if (busInfo.length == 2) {
         let firstBusStack = shuttleStack.addStack();
         let firstBusType = firstBusStack.addText(busInfo[0]["destination"]);
-        firstBusType.font = Font.systemFont(18);
+        firstBusType.font = Font.systemFont(14);
         firstBusStack.addSpacer(10);
         let firstBusTime = firstBusStack.addText(busInfo[0]["time"]);
-        firstBusTime.font = new Font("CourierNewPS-BoldMT", 20);
+        firstBusTime.font = new Font("CourierNewPS-BoldMT", 25);
         firstBusStack.addSpacer(10);
         let firstBusDepartText = firstBusStack.addText("출발");
-        firstBusDepartText.font = Font.systemFont(18);
+        firstBusDepartText.font = Font.systemFont(14);
+        firstBusStack.centerAlignContent();
 
-        shuttleStack.addSpacer(12);
+        shuttleStack.addSpacer(8);
         let secondBusStack = shuttleStack.addStack();
         let secondBusType = secondBusStack.addText(busInfo[1]["destination"]);
-        secondBusType.font = Font.systemFont(18);
+        secondBusType.font = Font.systemFont(14);
         secondBusStack.addSpacer(10);
         let secondBusTime = secondBusStack.addText(busInfo[1]["time"]);
-        secondBusTime.font = new Font("CourierNewPS-BoldMT", 20);
+        secondBusTime.font = new Font("CourierNewPS-BoldMT", 25);
         secondBusStack.addSpacer(10);
         let secondBusDepartText = secondBusStack.addText("출발");
-        secondBusDepartText.font = Font.systemFont(18);
-
-    } else if (busInfo.length == 1) {
-        
+        secondBusDepartText.font = Font.systemFont(14);
+        secondBusStack.centerAlignContent();
+    } else if (busInfo.length == 1) {  
+        shuttleStack.addSpacer(18)
+        let firstBusStack = shuttleStack.addStack();
+        let firstBusType = firstBusStack.addText(busInfo[0]["destination"]);
+        firstBusType.font = Font.systemFont(14);
+        firstBusStack.addSpacer(10);
+        let firstBusTime = firstBusStack.addText(busInfo[0]["time"]);
+        firstBusTime.font = new Font("CourierNewPS-BoldMT", 25);
+        firstBusStack.addSpacer(10);
+        let firstBusDepartText = firstBusStack.addText("출발");
+        firstBusDepartText.font = Font.systemFont(14);
+        firstBusStack.centerAlignContent();
     } else {
-        
+        shuttleStack.addSpacer(14);
         let doneText = shuttleStack.addText(busInfo);
-        doneText.font = Font.systemFont(16)
+        doneText.font = Font.systemFont(14)
         doneText.centerAlignText();
     }
 
@@ -309,6 +320,7 @@ const createMediumWidget = async () => {
         let linkStack = locationStack.addStack();
 
         linkStack.url = "https://hybus.app"
+        linkStack.addSpacer(4);
         let linkElement = linkStack.addImage(safariSymbol.image);
         linkElement.imageSize = new Size(14, 14);
         linkElement.tintColor = Color.blue();
