@@ -312,20 +312,8 @@ const createMediumWidget = async () => {
         doneText.centerAlignText();
     }
 
-    if (!config.runsWithSiri) {
-        let safariSymbol = SFSymbol.named("safari");
-        let linkStack = locationStack.addStack();
+    mainStack.centerAlignContent();
 
-        linkStack.url = "https://hybus.app"
-        linkStack.addSpacer(4);
-        let linkElement = linkStack.addImage(safariSymbol.image);
-        linkElement.imageSize = new Size(14, 14);
-        linkElement.tintColor = Color.blue();
-        linkStack.addSpacer(3);
-        let linkText = linkStack.addText("버스하냥 열기");
-        linkText.font = Font.mediumSystemFont(12);
-    }
-    
     return widget;
 }
 
