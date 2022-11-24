@@ -234,7 +234,7 @@ const getCurrentInfo = async (loc) => {
 
 const createMediumWidget = async () => {
     let widget = new ListWidget();
-    
+    widget.url = "https://hybus.app";
 	let mainStack = widget.addStack();
     mainStack.layoutHorizontally();
     
