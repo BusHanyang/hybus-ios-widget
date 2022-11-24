@@ -332,6 +332,7 @@ const createMediumWidget = async () => {
 
 const createSmallWidget = async () => {
     let widget = new ListWidget();
+    widget.url = "https://hybus.app"
     let titleStack = widget.addStack();
     const loc = args.widgetParameter;
 	
