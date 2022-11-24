@@ -241,10 +241,8 @@ const createMediumWidget = async () => {
     
     let locationStack = mainStack.addStack()
     let simpleGradient = new LinearGradient()
-    simpleGradient.colors = [new Color("001148"), new Color("1a1e43")]
+    simpleGradient.colors = [new Color("141414"), new Color("001148")]
     simpleGradient.locations = [0, 1]
-    simpleGradient.startPoint = new Point(0, 0)
-    simpleGradient.endPoint = new Point(1, 1)
 
     widget.backgroundGradient = simpleGradient
     var location = null;
