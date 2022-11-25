@@ -251,6 +251,7 @@ const createMediumWidget = async () => {
         
         if (location == null || location == undefined || location == "") {
             let title = mainStack.addText("정류장 파라미터를 설정해 주세요!");
+            title.textColor = Color.white();
     
             return widget;
         }
@@ -264,6 +265,7 @@ const createMediumWidget = async () => {
 	locationStack.layoutVertically();
     let locationText = locationStack.addText(location);
 	locationText.font = Font.boldSystemFont(36);
+    locationText.textColor = Color.white();
     
 	mainStack.addSpacer(30);
 
@@ -274,41 +276,51 @@ const createMediumWidget = async () => {
         let firstBusStack = shuttleStack.addStack();
         let firstBusType = firstBusStack.addText(busInfo[0]["destination"]);
         firstBusType.font = Font.systemFont(14);
+        firstBusType.textColor = Color.white();
         firstBusStack.addSpacer(10);
         let firstBusTime = firstBusStack.addText(busInfo[0]["time"]);
         firstBusTime.font = new Font("CourierNewPS-BoldMT", 25);
+        firstBusTime.textColor = Color.white();
         firstBusStack.addSpacer(10);
         let firstBusDepartText = firstBusStack.addText("출발");
         firstBusDepartText.font = Font.systemFont(14);
+        firstBusDepartText.textColor = Color.white();
         firstBusStack.centerAlignContent();
 
         shuttleStack.addSpacer(8);
         let secondBusStack = shuttleStack.addStack();
         let secondBusType = secondBusStack.addText(busInfo[1]["destination"]);
         secondBusType.font = Font.systemFont(14);
+        secondBusType.textColor = Color.white();
         secondBusStack.addSpacer(10);
         let secondBusTime = secondBusStack.addText(busInfo[1]["time"]);
         secondBusTime.font = new Font("CourierNewPS-BoldMT", 25);
+        secondBusTime.textColor = Color.white();
         secondBusStack.addSpacer(10);
         let secondBusDepartText = secondBusStack.addText("출발");
         secondBusDepartText.font = Font.systemFont(14);
+        secondBusDepartText.textColor = Color.white();
         secondBusStack.centerAlignContent();
     } else if (busInfo.length == 1) {  
         shuttleStack.addSpacer(18)
         let firstBusStack = shuttleStack.addStack();
         let firstBusType = firstBusStack.addText(busInfo[0]["destination"]);
         firstBusType.font = Font.systemFont(14);
+        firstBusType.textColor = Color.white();
         firstBusStack.addSpacer(10);
         let firstBusTime = firstBusStack.addText(busInfo[0]["time"]);
         firstBusTime.font = new Font("CourierNewPS-BoldMT", 25);
+        firstBusTime.textColor = Color.white();
         firstBusStack.addSpacer(10);
         let firstBusDepartText = firstBusStack.addText("출발");
         firstBusDepartText.font = Font.systemFont(14);
+        firstBusDepartText.textColor = Color.white();
         firstBusStack.centerAlignContent();
     } else {
         shuttleStack.addSpacer(14);
         let doneText = shuttleStack.addText(busInfo);
         doneText.font = Font.systemFont(14)
+        doneText.textColor = Color.white();
         doneText.centerAlignText();
     }
 
@@ -341,7 +353,7 @@ const createSmallWidget = async () => {
         
         if (location == null || location == undefined || location == "") {
             let title = mainStack.addText("정류장 파라미터를 설정해 주세요!");
-    
+            title.textColor = Color.white();
             return widget;
         }
     } else {
@@ -354,6 +366,7 @@ const createSmallWidget = async () => {
 	locationStack.layoutHorizontally();
     let locationText = locationStack.addText(location);
 	locationText.font = Font.boldSystemFont(32);
+    locationText.textColor = Color.white();
     
 	mainStack.addSpacer(10);
 
@@ -364,20 +377,24 @@ const createSmallWidget = async () => {
         let busTypeStack = shuttleStack.addStack();
         let busTypeText = busTypeStack.addText(busInfo[0]["destination"]);
         busTypeText.font = Font.systemFont(14);
+        busTypeText.textColor = Color.white();
 		shuttleStack.addSpacer(5);
         
         let busTimeStack = shuttleStack.addStack();
         busTimeStack.layoutHorizontally();
         let busTimeText = busTimeStack.addText(busInfo[0]["time"]);
         busTimeText.font = new Font("CourierNewPS-BoldMT", 28);
+        busTimeText.textColor = Color.white();
         busTimeStack.addSpacer(10);
         let busDepartText = busTimeStack.addText("출발");
         busDepartText.font = Font.systemFont(14);
+        busDepartText.textColor = Color.white();
         busTimeStack.centerAlignContent();
     } else {
         shuttleStack.addSpacer(14);
         let doneText = shuttleStack.addText(busInfo);
         doneText.font = Font.systemFont(14)
+        doneText.textColor = Color.white();
         doneText.centerAlignText();
     }
 
