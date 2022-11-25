@@ -210,7 +210,7 @@ const getCurrentInfo = async (loc) => {
         return "시간표를 불러오는 중 오류가 발생했습니다."
     } else if (timetable.length === 2) {
         // Network error
-		return "네트워크 오류입니다."
+        return "네트워크 오류입니다."
     }
 
     const filteredTimetable = timetable.filter(isAfterCurrentTime);
@@ -235,9 +235,9 @@ const getCurrentInfo = async (loc) => {
 const createMediumWidget = async () => {
     let widget = new ListWidget();
     widget.url = "https://hybus.app";
-	let mainStack = widget.addStack();
+    let mainStack = widget.addStack();
     mainStack.layoutHorizontally();
-    
+
     let locationStack = mainStack.addStack()
     let simpleGradient = new LinearGradient()
     simpleGradient.colors = [new Color("102027"), new Color("001148")]
@@ -245,33 +245,33 @@ const createMediumWidget = async () => {
 
     widget.backgroundGradient = simpleGradient
     var location = null;
-    
+
     if (config.runsInWidget) {
         location = args.widgetParameter;
-        
+
         if (location == null || location == undefined || location == "") {
             let title = mainStack.addText("정류장 파라미터를 설정해 주세요!");
             title.textColor = Color.white();
-    
+
             return widget;
         }
     } else {
         location = "셔틀콕"
     }
-    
-    const convertedLocation = convertLocationString(location);
-	const busInfo = await getCurrentInfo(convertedLocation);
 
-	locationStack.layoutVertically();
+    const convertedLocation = convertLocationString(location);
+    const busInfo = await getCurrentInfo(convertedLocation);
+
+    locationStack.layoutVertically();
     let locationText = locationStack.addText(location);
-	locationText.font = Font.boldSystemFont(36);
+    locationText.font = Font.boldSystemFont(36);
     locationText.textColor = Color.white();
-    
-	mainStack.addSpacer(30);
+
+    mainStack.addSpacer(30);
 
     let shuttleStack = mainStack.addStack();
     shuttleStack.layoutVertically();
-    
+
     if (busInfo.length == 2) {
         let firstBusStack = shuttleStack.addStack();
         let firstBusType = firstBusStack.addText(busInfo[0]["destination"]);
@@ -301,7 +301,7 @@ const createMediumWidget = async () => {
         secondBusDepartText.font = Font.systemFont(14);
         secondBusDepartText.textColor = Color.white();
         secondBusStack.centerAlignContent();
-    } else if (busInfo.length == 1) {  
+    } else if (busInfo.length == 1) {
         shuttleStack.addSpacer(18)
         let firstBusStack = shuttleStack.addStack();
         let firstBusType = firstBusStack.addText(busInfo[0]["destination"]);
@@ -335,11 +335,11 @@ const createSmallWidget = async () => {
     widget.url = "https://hybus.app"
     let titleStack = widget.addStack();
     const loc = args.widgetParameter;
-	
+
     let mainStack = widget.addStack();
     mainStack.layoutVertically();
 
-	let locationStack = mainStack.addStack();
+    let locationStack = mainStack.addStack();
     let simpleGradient = new LinearGradient()
     simpleGradient.colors = [new Color("141414"), new Color("001148")]
     simpleGradient.locations = [0, 1]
@@ -347,10 +347,10 @@ const createSmallWidget = async () => {
     widget.backgroundGradient = simpleGradient
 
     var location = null;
-    
+
     if (config.runsInWidget) {
         location = args.widgetParameter;
-        
+
         if (location == null || location == undefined || location == "") {
             let title = mainStack.addText("정류장 파라미터를 설정해 주세요!");
             title.textColor = Color.white();
@@ -361,25 +361,25 @@ const createSmallWidget = async () => {
     }
 
     const convertedLocation = convertLocationString(location);
-	const busInfo = await getCurrentInfo(convertedLocation);
+    const busInfo = await getCurrentInfo(convertedLocation);
 
-	locationStack.layoutHorizontally();
+    locationStack.layoutHorizontally();
     let locationText = locationStack.addText(location);
-	locationText.font = Font.boldSystemFont(32);
+    locationText.font = Font.boldSystemFont(32);
     locationText.textColor = Color.white();
-    
-	mainStack.addSpacer(10);
+
+    mainStack.addSpacer(10);
 
     let shuttleStack = mainStack.addStack();
     shuttleStack.layoutVertically();
-    
+
     if (busInfo.length == 1 || busInfo.length == 2) {
         let busTypeStack = shuttleStack.addStack();
         let busTypeText = busTypeStack.addText(busInfo[0]["destination"]);
         busTypeText.font = Font.systemFont(14);
         busTypeText.textColor = Color.white();
-		shuttleStack.addSpacer(5);
-        
+        shuttleStack.addSpacer(5);
+
         let busTimeStack = shuttleStack.addStack();
         busTimeStack.layoutHorizontally();
         let busTimeText = busTimeStack.addText(busInfo[0]["time"]);
@@ -398,7 +398,6 @@ const createSmallWidget = async () => {
         doneText.centerAlignText();
     }
 
-
     return widget;
 }
 
@@ -408,7 +407,7 @@ if (config.runsInApp) {
     Script.setWidget(widget);
     widget.presentSmall();
 } else {
-    let nextRefresh = Date.now() + 1000*30
+    let nextRefresh = Date.now() + 1000 * 30
     if (config.widgetFamily === "small") {
         const widget = await createSmallWidget();
         Script.setWidget(widget);
