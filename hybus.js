@@ -193,7 +193,7 @@ const getCurrentInfo = async (loc) => {
     // Based on hybus-genesis/Card.tsx
     const settings = await getSettings();
 
-    if (settings == {}) {
+    if (settings == {} || settings == null || settings == undefined) {
         console.log("Error while retrieving settings");
         return [];
     }
