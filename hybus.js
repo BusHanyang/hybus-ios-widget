@@ -232,6 +232,48 @@ const getCurrentInfo = async (loc) => {
 }
 
 
+const generateAlert = async (message, options) => {
+
+    let alert = new Alert()
+    alert.message = message
+
+    for (const option of options) {
+        alert.addAction(option)
+    }
+
+    let response = await alert.presentAlert()
+    return response
+}
+
+
+const updateCode = async () => {
+    let files = FileManager.local()
+    const usingiCloud = files.isFileStoredIniCloud(module.filename)
+
+    files = usingiCloud ? FileManager.iCloud() : files
+
+    const UPDATE_URL = "https://raw.githubusercontent.com/BusHanyang/hybus-ios-widget/main/hybus.js"
+
+    let req = new Request(UPDATE_URL);
+    let code = await req.loadString().then((response) => {
+        if (!(response.substring(0, 15).includes("use strict"))) {
+            return null
+        }
+        return response
+    }).catch((error) => {
+        console.log(error);
+        return null;
+    })
+
+    if (code === null) {
+        await generateAlert("업데이트에 실패했습니다.", ["확인"]);
+    } else {
+        files.writeString(module.filename, code);
+        await generateAlert("업데이트에 성공했습니다. 스크립트를 닫고, 재시작해 주세요.", ["확인"]);
+    }
+}
+
+
 const createMediumWidget = async () => {
     let widget = new ListWidget();
     widget.url = "https://hybus.app";
@@ -403,9 +445,23 @@ const createSmallWidget = async () => {
 
 
 if (config.runsInApp) {
-    const widget = await createSmallWidget();
-    Script.setWidget(widget);
-    widget.presentSmall();
+    const prompt = "옵션을 선택하세요.";
+    const options = ["위젯 미리보기 (1x1)", "위젯 미리보기 (2x1)", "최신 버전으로 업데이트하기"];
+    let response = await generateAlert(prompt, options);
+
+    if (response === 0) {
+        const widget = await createSmallWidget();
+        Script.setWidget(widget);
+        widget.presentSmall();
+    } else if (response === 1) {
+        const widget = await createMediumWidget();
+        Script.setWidget(widget);
+        widget.presentMedium();
+    }
+    else if (response === 2) {
+        await updateCode();
+    }
+
 } else {
     let nextRefresh = Date.now() + 1000 * 30
     if (config.widgetFamily === "small") {
