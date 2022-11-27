@@ -446,7 +446,7 @@ const createSmallWidget = async () => {
 
 if (config.runsInApp) {
     const prompt = "옵션을 선택하세요.";
-    const options = ["위젯 미리보기 (1x1)", "위젯 미리보기 (1x4)", "최신 버전으로 업데이트하기"];
+    const options = ["위젯 미리보기 (2x2)", "위젯 미리보기 (2x4)", "최신 버전으로 업데이트하기"];
     let response = await generateAlert(prompt, options);
 
     if (response === 0) {
