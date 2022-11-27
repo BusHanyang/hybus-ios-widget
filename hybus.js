@@ -167,12 +167,12 @@ const getDestinationType = (busType, loc) => {
         } else if (busType == 'DHJ') {
             return '중앙역행'
         } else {
-            return '컨퍼앞행'
+            return '캠퍼스행'
         }
     } else if (loc == 'yesulin') {
-        return '컨퍼앞행'
+        return '캠퍼스행'
     } else if (loc == 'jungang') {
-        return '컨퍼앞행'
+        return '캠퍼스행'
     } else if (loc == 'shuttlecoke_i') {
         if (busType == 'NA') {
             return '행선지X'
