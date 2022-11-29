@@ -5,7 +5,7 @@ Scriptable widget을 이용한 버스하냥 위젯입니다.
 원하는 정류장의 정보를 2x2, 2x4 사이즈의 위젯으로 추가하실 수 있습니다.
 
 ## 스크린샷
-
+<img alt="screenshot" src="./images/screenshot.png">
 
 
 ## 설치방법
