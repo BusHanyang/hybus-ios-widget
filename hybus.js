@@ -73,6 +73,10 @@ const isWeekend = () => {
 const getSeason = (settings) => {
     const today = new Date();
 
+    if (settings == null || settings == undefined) {
+        return ['error', '']
+    }
+
     const [semesterStart, semesterEnd] = [new Date(settings["semester"]["start_date"]), new Date(`${settings["semester"]["end_date"]}T23:59:59+09:00`)];
     const [vacationSessionStart, vacationSessionEnd] = [new Date(settings["vacation_session"]["start_date"]), new Date(`${settings["vacation_session"]["end_date"]}T23:59:59+09:00`)];
     const [vacationStart, vacationEnd] = [new Date(settings["vacation"]["start_date"]), new Date(`${settings["vacation"]["end_date"]}T23:59:59+09:00`)];
