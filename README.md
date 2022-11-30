@@ -1,5 +1,7 @@
 # <img alt="버스하냥 iOS 위젯" src="./images/title.png">
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBusHanyang%2Fhybus-ios-widget&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 Scriptable widget을 이용한 버스하냥 위젯입니다.
 
 원하는 정류장의 정보를 2x2, 2x4 사이즈의 위젯으로 추가하실 수 있습니다.
