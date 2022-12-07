@@ -148,8 +148,11 @@ const isAfterCurrentTime = (sch) => {
     const timestamp = +today
 
     const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const date = today.getDate();
+    let month = `${today.getMonth() + 1}`;
+    let date = `${today.getDate()}`;
+    
+    if (month.length == 1) { month = `0${month}`}
+    if (date.length == 1) { date = `0${date}`}
 
     const schedule = new Date(`${year}-${month}-${date}T${sch["time"]}:00+09:00`);
     return +schedule - timestamp >= 0
