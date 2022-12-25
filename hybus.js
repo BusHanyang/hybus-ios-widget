@@ -207,6 +207,10 @@ const getCurrentInfo = async (loc) => {
 
     const [s, w] = getSeason(settings);
 
+    if (s === 'error' || s === 'halt') {
+        return "오늘 운행하는 셔틀이 없습니다."
+    }
+
     const timetable = await getTimetable(w, s, loc);
 
     if (timetable.length === 0) {
