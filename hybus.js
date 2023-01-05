@@ -3,7 +3,7 @@
 // This scriptable widget is from https://github.com/BusHanyang/hybus-ios-widget
 // By Taewan Park
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 
 const API_URL = 'https://api.hybus.app/';
 
