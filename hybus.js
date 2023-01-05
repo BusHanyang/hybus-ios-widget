@@ -77,69 +77,73 @@ const getSeason = (settings) => {
         return ['error', '']
     }
 
-    const [semesterStart, semesterEnd] = [new Date(settings["semester"]["start_date"]), new Date(`${settings["semester"]["end_date"]}T23:59:59+09:00`)];
-    const [vacationSessionStart, vacationSessionEnd] = [new Date(settings["vacation_session"]["start_date"]), new Date(`${settings["vacation_session"]["end_date"]}T23:59:59+09:00`)];
-    const [vacationStart, vacationEnd] = [new Date(settings["vacation"]["start_date"]), new Date(`${settings["vacation"]["end_date"]}T23:59:59+09:00`)];
-
-    const todayUnix = +today; // In milliseconds, not to do /1000 operation in all comparisons
-
-    const convertedHoliday = settings["holiday"].map((s) => { return new Date(s) });
-    const convertedHaltday = settings["halt"].map((s) => { return new Date(s) });
-
-    let isHoliday = false
-
-    for (const holiday of convertedHoliday) {
-        if (
-            today.getFullYear() == holiday.getFullYear() &&
-            today.getMonth() == holiday.getMonth() &&
-            today.getDate() == holiday.getDate()
+    try {
+        const [semesterStart, semesterEnd] = [new Date(settings["semester"]["start_date"]), new Date(`${settings["semester"]["end_date"]}T23:59:59+09:00`)];
+        const [vacationSessionStart, vacationSessionEnd] = [new Date(settings["vacation_session"]["start_date"]), new Date(`${settings["vacation_session"]["end_date"]}T23:59:59+09:00`)];
+        const [vacationStart, vacationEnd] = [new Date(settings["vacation"]["start_date"]), new Date(`${settings["vacation"]["end_date"]}T23:59:59+09:00`)];
+        
+        const todayUnix = +today; // In milliseconds, not to do /1000 operation in all comparisons
+    
+        const convertedHoliday = settings["holiday"].map((s) => { return new Date(s) });
+        const convertedHaltday = settings["halt"].map((s) => { return new Date(s) });
+    
+        let isHoliday = false
+    
+        for (const holiday of convertedHoliday) {
+            if (
+                today.getFullYear() == holiday.getFullYear() &&
+                today.getMonth() == holiday.getMonth() &&
+                today.getDate() == holiday.getDate()
+            ) {
+                isHoliday = true;
+                break;
+            }
+        }
+    
+        for (const haltDay of convertedHaltday) {
+            if (
+                today.getFullYear() == haltDay.getFullYear() &&
+                today.getMonth() == haltDay.getMonth() &&
+                today.getDate() == haltDay.getDate()
+            ) {
+                return ['halt', '']
+            }
+        }
+    
+        if (+semesterStart < todayUnix && todayUnix < +semesterEnd) {
+            // Semester
+            if (isWeekend() || isHoliday) {
+                return ['semester', 'weekend']
+            } else {
+                return ['semester', 'week']
+            }
+        } else if (
+            +vacationSessionStart < todayUnix &&
+            todayUnix < +vacationSessionEnd
         ) {
-            isHoliday = true;
-            break;
-        }
-    }
-
-    for (const haltDay of convertedHaltday) {
-        if (
-            today.getFullYear() == haltDay.getFullYear() &&
-            today.getMonth() == haltDay.getMonth() &&
-            today.getDate() == haltDay.getDate()
+            // Vacation Session
+            if (isWeekend() || isHoliday) {
+                return ['vacation_session', 'weekend']
+            } else {
+                return ['vacation_session', 'week']
+            }
+        } else if (
+            +vacationStart < todayUnix &&
+            todayUnix < +vacationEnd
         ) {
-            return ['halt', '']
-        }
-    }
-
-    if (+semesterStart < todayUnix && todayUnix < +semesterEnd) {
-        // Semester
-        if (isWeekend() || isHoliday) {
-            return ['semester', 'weekend']
+            // Vacation
+            if (isWeekend() || isHoliday) {
+                return ['vacation', 'weekend']
+            } else {
+                return ['vacation', 'week']
+            }
         } else {
-            return ['semester', 'week']
+            // Error!
+            return ['error', '']
         }
-    } else if (
-        +vacationSessionStart < todayUnix &&
-        todayUnix < +vacationSessionEnd
-    ) {
-        // Vacation Session
-        if (isWeekend() || isHoliday) {
-            return ['vacation_session', 'weekend']
-        } else {
-            return ['vacation_session', 'week']
-        }
-    } else if (
-        +vacationStart < todayUnix &&
-        todayUnix < +vacationEnd
-    ) {
-        // Vacation
-        if (isWeekend() || isHoliday) {
-            return ['vacation', 'weekend']
-        } else {
-            return ['vacation', 'week']
-        }
-    } else {
-        // Error!
+    } catch (error) {
         return ['error', '']
-    }
+    } 
 }
 
 
